@@ -48,7 +48,7 @@ const scanForAriaInputFieldName = ({attribs}) => {
     return hasAriaRole && !hasAriaLabel && !hasAriaLabelledBy;
 }
 
-const scanForFrameFocusableContent = ({name, attribs, children}) => {
+const scanForFrameFocusableContent = ({name, children}) => {
     if (name !== 'frame' && name !== 'iframe') return false;
     if (!children) return false;
     return children.some(child => child.attribs.tabindex === '-1');

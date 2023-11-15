@@ -1,6 +1,5 @@
 const express = require('express');
 const usersController = require("./user.controller");
-const isAdmin = require('../../middlewares/isAdmin');
 const router = express.Router();
 
 router.post('/register', usersController.register);

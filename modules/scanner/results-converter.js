@@ -8,7 +8,7 @@ const elementToText = (element) => {
 
 const resultsToText = (results) => {
     return Object.entries(results).map(([key, value]) => {
-        return `${value.title}: ${value.elements.length} violations\n
+        return `${key}: ${value.elements.length} violations\n
         ${value.elements.map(elementToText)}\n
         Recomendations: ${value.help}\n
         More info: ${value.helpUrl}\n`

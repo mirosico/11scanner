@@ -29,12 +29,11 @@ const saveScan = async ({email, url, violations}) => {
 const getAllScans = async (email) => {
     try {
         const user = await UserServices.getUserByEmail(email);
-        const scans = await Scans.find({
+        return await Scans.find({
             _id: {
                 $in: user.scans,
             }
         }).exec();
-        return scans;
     } catch (e) {
         console.error(e);
         return null;
