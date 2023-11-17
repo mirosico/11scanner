@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
+require('dotenv').config();
 
 const scannerRouter = require('./modules/scanner/scanner.router');
 const usersRouter = require('./modules/user/user.router');
@@ -12,7 +13,7 @@ const app = express();
 
 app.use(cors(
     {
-        origin: 'http://localhost:8000',
+        origin: process.env.CLIENT_URL,
         credentials: true,
         accessControlAllowCredentials: true,
         accessControlAllowOrigin: true,
@@ -23,8 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-app.use('/scanner', scannerRouter);
-//app.use('/scanner', authMiddleware, scannerRouter);
-app.use('/users', usersRouter);
+app.use('/scanner', authMiddleware, scannerRouter);
+app.use('/user', usersRouter);
 
 module.exports = app;

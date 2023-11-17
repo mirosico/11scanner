@@ -57,9 +57,9 @@ const scanForFrameFocusableContent = ({name, children}) => {
 const scanForInputLabel = ({name, attribs, parent}, elements) => {
     if (name !== 'input') return false;
     if (!attribs) return false;
-    const {id} = attribs;
-    if (!id) return false;
-    const label = elements.find(e => e.name === 'label' && e.attribs.for === id) || parent.name === 'label';
+    const {id, 'aria-labelledby': labelledby} = attribs;
+    if (!id && !labelledby) return parent.name !== 'label';
+    const label = elements.find(e => e.name === 'label' && e.attribs.for === id) || elements.find(e => e.name === 'label' && e.attribs.id === labelledby);
     return !label;
 }
 
@@ -85,7 +85,6 @@ const scan = (elements, ignoreViolations) => {
                 resultsMap[violationKey].elements.push({
                     name: element.name,
                     attribs: element.attribs,
-                    children: element.children,
                     data: element.data,
                 });
             }

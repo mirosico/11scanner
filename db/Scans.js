@@ -8,6 +8,10 @@ const ScanSchema = new mongoose.Schema({
     violations: {
         type: Object,
         required: false,
+    },
+    date: {
+        type: Date,
+        default: Date.now,
     }
 });
 

@@ -1,23 +1,19 @@
 const elementToText = (element) => {
-    return `Element: ${element.name}\n
-    Attributes: ${JSON.stringify(element.attribs)}\n
-    Children: ${JSON.stringify(element.children)}\n
-    Data: ${JSON.stringify(element.data)}\n
-    `;
+    return `<${element.name} ${Object.entries(element.attribs).map(([key, value]) => `${key}="${value}"`).join(' ')}>${element.data ?? ''}</${element.name}>\n`;
 }
 
 const resultsToText = (results) => {
     return Object.entries(results).map(([key, value]) => {
-        return `${key}: ${value.elements.length} violations\n
+        return `${key}: ${value.elements.length} violations\nViolation description: ${value.description}\nRecomendations: ${value.help}\nMore info: ${value.helpUrl}\nElements:\n
         ${value.elements.map(elementToText)}\n
-        Recomendations: ${value.help}\n
-        More info: ${value.helpUrl}\n`
+        --------------------------------------------------------------------------\n`
     }).join('\n');
 }
 
 
-const scanToText = (url, results) =>
-    `Scan for ${url}:\n${resultsToText(results)}\n`;
+const scanToText = ({url, date, violations}) =>
+    `Results for ${url}:\nScanned on ${date}\n
+    \n${resultsToText(violations)}\n`;
 
 
 module.exports = {

@@ -6,7 +6,7 @@ const createPDF = async (filename, data, res) => {
         const doc = new PDFDocument();
 
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader(`Content-Disposition', 'attachment; filename=${filename}.pdf`);
+        res.setHeader(`Content-Disposition`, `attachment; filename=${filename}.pdf`);
         doc.pipe(res);
         doc.text(data);
         doc.end();

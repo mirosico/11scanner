@@ -2,7 +2,7 @@ const SessionService = require('../modules/session/session.service');
 
 const auth = async (req, res, next) => {
     try {
-        const token = req.cookies.token;
+        const token = req.headers['x-access-token'];
         const decodedToken = await SessionService.verifyToken(token);
         if (!decodedToken) {
             throw new Error('Invalid request!');
